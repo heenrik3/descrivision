@@ -65,7 +65,7 @@ function Home() {
 			}
 		}
 
-		xhr.send(formData) // Envia o arquivo
+		xhr.send(formData)
 	}
 
 	return (
