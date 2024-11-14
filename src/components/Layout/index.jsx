@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import Header from '../Header'
-import '../../style/main.sass'
+import { Toaster } from 'react-hot-toast'
 import Footer from '../Footer'
+import '../../style/main.sass'
 
 function Layout() {
 	const [height, setHeight] = useState(`${window.innerHeight}px`)
 
 	useEffect(() => {
-		const onResize = () => {
-			setHeight(`${window.innerHeight}px`)
-		}
+		const onResize = () => setHeight(`${window.innerHeight}px`)
 
 		window.addEventListener('resize', onResize)
 
@@ -21,9 +19,9 @@ function Layout() {
 
 	return (
 		<div className='app' style={{ height }}>
-			<Header />
 			<Outlet />
 			<Footer />
+			<Toaster />
 		</div>
 	)
 }

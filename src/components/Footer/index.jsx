@@ -1,10 +1,10 @@
-import { APP } from '../../../config'
+import { APP_NAME } from '../../../config'
 
 function Footer() {
 	return (
 		<footer>
 			<span aria-label=''>
-				{APP}® {new Date().getFullYear()}
+				{APP_NAME}® {new Date().getFullYear()}
 			</span>
 		</footer>
 	)

@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import AuthProvider from '../store/Auth/context'
 import Layout from '../components/Layout'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
@@ -7,11 +6,7 @@ import Protected from '../components/Protected'
 import Notfound from '../pages/NotFound'
 
 function Router() {
-	const root = (
-		<AuthProvider>
-			<Layout />
-		</AuthProvider>
-	)
+	const root = <Layout />
 
 	const home = {
 		path: '/',

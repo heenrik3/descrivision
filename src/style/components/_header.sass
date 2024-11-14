@@ -1,19 +1,46 @@
 .header
     // margin: 2rem
-    padding: 1rem 2rem
+    padding: 1rem 50rem
+    border-bottom: 2px solid rgba(black, .05)
     // border-radius: 1rem
 
-    // background-color: white
+    // background-color: rgba(white, .2)
+    background-color: white
+    // backdrop-filter: blur(15px)
     // background-color: #f2165c
     // background: linear-gradient(90deg, #076eff 50%, #f2165c)
-    background: linear-gradient(90deg, #076eff 50%, #4fabff, #ac87eb, #ee4d5d)
+    // background: linear-gradient(90deg, #076eff 50%, #4fabff, #ac87eb, #ee4d5d)
 
     display: flex
     align-items: center
     justify-content: space-between
+    // @include card()
+// .logo, .user > p
+//     color: white
 
-.logo, .user > p
-    color: white
+.logo
+    display: flex
+    align-items: center
+    gap: .5rem
+
+    & picture
+        height: 3.5rem
+        width: 3.5rem
+        border-radius: 50%
+        background: white
+
+        display: flex
+        align-items: center
+        justify-content: center
+
+    & div
+        display: flex
+        flex-direction: column
+        line-height: 105%
+    
+    & span
+        color: rgba(black, .4)
+        font-weight: bold
 
 .user
     display: flex
@@ -23,5 +50,5 @@
     & p
         font-weight: bold
 
-    & .btn
-        background-color: white
+    // & .btn
+    //     background-color: white

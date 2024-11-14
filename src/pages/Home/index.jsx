@@ -1,15 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import brain from '/psychology.svg'
+import { APP_NAME, TYPE_REGEX } from '../../../config'
+import toast from 'react-hot-toast'
+import plus from '/add.svg'
 import search from '/search.svg'
-import { APP } from '../../../config'
-
-function Loader() {
-	return (
-		<div className='loader'>
-			<div></div>
-		</div>
-	)
-}
+import brain from '/psychology.svg'
+import frameimage from '/imagesmode.svg'
 
 function Home() {
 	const [image, setImage] = useState()
@@ -32,13 +27,19 @@ function Home() {
 	}
 
 	function onChange(e) {
-		setImage(e.target.files[0])
+		const file = e.target.files[0]
+
+		if (!TYPE_REGEX.test(file.type)) return
+
+		setImage(file)
 		setDescription('')
 	}
 
 	function describeImage() {
 		setIsloading(true)
 		setDescription('')
+
+		const id = toast.loading('Enviando...')
 
 		const formData = new FormData()
 		formData.append('file', image)
@@ -49,57 +50,98 @@ function Home() {
 		let received = ''
 
 		xhr.onprogress = e => {
-			setIsloading(false)
-
-			const chunk = xhr.responseText.substring(received.length)
-
-			setDescription(current => current + chunk)
-
-			received = xhr.responseText
+			// setIsloading(false)
+			// const chunk = xhr.responseText.substring(received.length)
+			// setDescription(current => current + chunk)
+			// received = xhr.responseText
 		}
 
-		xhr.onload = function () {
-			if (xhr.status === 200) {
-			} else {
-				setDescription('Erro no upload')
+		xhr.onreadystatechange = e => {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				const responseText = xhr.responseText // Aqui está a resposta como string
+				setIsloading(false)
+				setDescription(responseText)
 			}
+		}
+
+		xhr.onload = e => {
+			if (xhr.status === 200) {
+				toast.success('Análise concluída.', { id })
+			} else toast.error('Erro ao analisar imagem!', { id })
+		}
+
+		xhr.onerror = e => {
+			toast.error('Erro ao analisar imagem!', { id })
 		}
 
 		xhr.send(formData)
 	}
 
-	return (
-		<main className='home'>
-			<section>
-				<div className='actions'>
-					<button onClick={onPickImage}>
-						<img src={search} alt='' />
-						<span>Selecionar Imagem</span>
-					</button>
-					<button
-						onClick={describeImage}
-						disabled={!image || isloading}
-					>
-						<img src={brain} alt='' />
-						<span>Descrever</span>
-					</button>
-				</div>
-			</section>
-			<section>
+	let pictureElement, descriptionElement
+
+	if (image) {
+		pictureElement = (
+			<>
 				<picture>
-					{image ? (
-						<img src={URL.createObjectURL(image)} />
-					) : (
-						<span>{APP}</span>
-					)}
+					{isloading && <div className='skeleton'>&nbsp;</div>}
+					<img
+						className={`image ${isloading ? 'loading' : ''}`}
+						src={URL.createObjectURL(image)}
+					/>
 				</picture>
-			</section>
-			<section>
-				<div className='description'>
-					{isloading ? <Loader /> : <span>{description}</span>}
+				<button
+					onClick={describeImage}
+					className={`btn ${isloading ? 'active' : ''}`}
+					disabled={!image || isloading}
+				>
+					<img src={search} alt='' />
+					{isloading ? 'Analisando...' : 'Analisar'}
+				</button>
+			</>
+		)
+	} else {
+		pictureElement = (
+			<span>
+				<img src={frameimage} alt='' />
+				Escolha uma imagem para começar 😉
+			</span>
+		)
+	}
+
+	if (isloading) descriptionElement = <h3>Carregando...</h3>
+	else if (description && image) descriptionElement = <h3>{description}</h3>
+	else descriptionElement = <span></span> //!description && !image
+
+	return (
+		<>
+			<header className='header'>
+				<div className='logo'>
+					<picture>
+						<img src={brain} alt='' />
+					</picture>
+					<div>
+						<h2>{APP_NAME}</h2>
+						<span>Imagens em texto</span>
+					</div>
 				</div>
-			</section>
-		</main>
+
+				<button className='btn' onClick={onPickImage}>
+					<img src={plus} alt='' />
+					Escolher imagem
+				</button>
+			</header>
+
+			<main>
+				<section>
+					<div className='image__card'>{pictureElement}</div>
+					{description && (
+						<div className='description__card'>
+							{descriptionElement}
+						</div>
+					)}
+				</section>
+			</main>
+		</>
 	)
 }
 

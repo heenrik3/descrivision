@@ -1,5 +1,6 @@
 import { APP } from '../../../config'
 import { useAuth } from '../../store/Auth/context'
+import brain from '/psychology.svg'
 
 function Header() {
 	const { isAuth, logout, user } = useAuth()
@@ -7,19 +8,27 @@ function Header() {
 	return (
 		<header className='header'>
 			<div className='logo'>
-				<h2>{APP}</h2>
+				<picture>
+					<img src={brain} alt='' />
+				</picture>
+				<div>
+					<h2>{APP}</h2>
+					<span>Imagens em texto</span>
+				</div>
 			</div>
 
-			{isAuth && (
-				<div className='user'>
-					<p>{'Olá ' + user.name}</p>
-					<button className='btn' onClick={logout}>
-						Sair
-					</button>
-				</div>
-			)}
+			<button className='btn'>Escolher imagem</button>
 		</header>
 	)
 }
 
 export default Header
+
+// {isAuth && (
+// 	<div className='user'>
+// 		<p>{'Olá ' + user.name}</p>
+// 		<button className='btn' onClick={logout}>
+// 			Sair
+// 		</button>
+// 	</div>
+// )}

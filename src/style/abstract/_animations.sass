@@ -6,3 +6,26 @@
     100%
         opacity: 1
         transform: scale(100%)
+
+@keyframes rotating
+    0%
+        transform: scale(100%) rotate(0deg)
+        
+    50%
+        transform: scale(80%)
+    100%
+        transform: scale(100%) rotate(360deg)
+
+@keyframes active
+    0%
+        background-position: 0% 50%
+
+    50%
+        background-position: 100% 50%
+
+    100%
+        background-position: 0% 50%
+
+@keyframes shine
+    to
+        background-position: right -40px top 0

@@ -1,4 +1,7 @@
-@mixin card()
-    background-color: white
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px
+@mixin shadow()
+    box-shadow: rgba(black, .09) 0px 1px 4px
     
+@mixin card()
+    border-radius: 1rem
+    background-color: white
+    @include shadow()
