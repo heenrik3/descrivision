@@ -1,22 +1,23 @@
 .header
-    // margin: 2rem
     padding: 1rem 50rem
     border-bottom: 2px solid rgba(black, .05)
-    // border-radius: 1rem
-
-    // background-color: rgba(white, .2)
     background-color: white
-    // backdrop-filter: blur(15px)
-    // background-color: #f2165c
-    // background: linear-gradient(90deg, #076eff 50%, #f2165c)
-    // background: linear-gradient(90deg, #076eff 50%, #4fabff, #ac87eb, #ee4d5d)
 
     display: flex
     align-items: center
     justify-content: space-between
-    // @include card()
-// .logo, .user > p
-//     color: white
+
+    transition: .3s
+
+    @include respond(tab-land)
+        padding: 1rem 25rem
+
+    @include respond(tab-port)
+        padding: 1rem 15rem
+
+    @include respond(phone)
+        padding: 1rem
+
 
 .logo
     display: flex
@@ -32,6 +33,9 @@
         display: flex
         align-items: center
         justify-content: center
+
+        @include respond(phone)
+            display: none
 
     & div
         display: flex

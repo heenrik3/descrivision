@@ -11,6 +11,17 @@ main
         gap: 1rem
         flex: 1
 
+        transition: .3s
+
+        @include respond(tab-land)
+            padding: 2rem 25rem
+
+        @include respond(tab-port)
+            padding: 2rem 15rem
+
+        @include respond(phone)
+            padding: 1rem
+
         & > div
             min-height: 25rem
             display: flex
@@ -42,6 +53,7 @@ main
 
         font-weight: bold
         font-size: 2rem
+        text-align: center
 
         & img
             height: 4rem

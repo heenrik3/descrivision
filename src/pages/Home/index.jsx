@@ -87,6 +87,7 @@ function Home() {
 					<img
 						className={`image ${isloading ? 'loading' : ''}`}
 						src={URL.createObjectURL(image)}
+						alt={description}
 					/>
 				</picture>
 				<button
